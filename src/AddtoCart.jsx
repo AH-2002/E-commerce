@@ -1,0 +1,39 @@
+import React, { useContext } from "react";
+import { prodContext } from "./Store";
+
+export default function AddtoCart() {
+
+    let { cart, increaseItem, deleteItem, decreaseItem, clearCart } = useContext(prodContext);
+    let total = cart.reduce((i, product) => i + product.price * product.quantity, 0);
+
+    return (
+        <section className='p-5'>
+            <ul>
+                {cart.length > 0 ? (
+                    cart.map((item) => (
+                        <li className='d-flex justify-content-between align-items-center mb-4 p-3' style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }} key={item.id}>
+                            <div className="card-img-top" style={{ width: "200px", height: '150px', objectFit: 'cover' }} >
+                                <img src={item.image} style={{ width: '100%', height: '100%' }} alt={item.title} />
+                            </div>
+                            <div className='cartItemsContent'>
+                                <h5 style={{ fontWeight: 'bolder' }}>{item.title}</h5>
+                                <p style={{ fontSize: 'larger', fontWeight: 'bolder', margin: '15px 0 15px 0' }}>Price: {item.price * item.quantity}</p>
+                                <button class=" btn btn-danger" onClick={() => decreaseItem(item.id)}>-</button>
+                                <span style={{ fontSize: 'larger', fontWeight: 'bolder', margin: '15px 10px 15px 10px' }}>{item.quantity}</span>
+                                <button class=" btn btn-info" onClick={() => increaseItem(item.id)}>+</button>
+                            </div>
+                            <div>
+                                <button style={{ marginBottom: '20px' }} class=" btn btn-danger" onClick={() => deleteItem(item.id)} >Delete</button>
+                            </div>
+                        </li>
+                    ))) : (<p>Your cart is empty.</p>
+                )}
+            </ul>
+            <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', width: '80%', margin: 'auto' }}>
+                <p style={{ marginTop: '12px' }}>Invoice : {total}</p>
+                {cart.length > 0 ? <button onClick={clearCart} className='btn btn-danger'>Delete All</button> : ""}
+                {cart.length > 0 ? <button className='btn btn-info'>Place Order</button> : ""}
+            </div>
+        </section >
+    )
+}
