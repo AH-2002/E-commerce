@@ -1,10 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { prodContext } from "./Store";
+import { useNavigate } from "react-router";
+
 
 export default function AddtoCart() {
 
     let { cart, increaseItem, deleteItem, decreaseItem, clearCart } = useContext(prodContext);
     let total = cart.reduce((i, product) => i + product.price * product.quantity, 0);
+    let navigate = useNavigate();
+    let [paymentMethod, setPaymentMethod] = useState("");
+
+
+
+    let handlePayment = () => {
+        if (paymentMethod === 'visa') {
+            navigate('/visa');
+        } else if (paymentMethod === 'cash') {
+            alert("Order placed with Cash on Delivery!");
+            clearCart();
+            navigate('/');
+        } else {
+            alert("Please select a payment method.");
+        }
+    };
+
 
     return (
         <section className='p-5'>
@@ -23,16 +42,28 @@ export default function AddtoCart() {
                                 <button class=" btn btn-info" onClick={() => increaseItem(item.id)}>+</button>
                             </div>
                             <div>
-                                <button style={{ marginBottom: '20px' }} class=" btn btn-danger" onClick={() => deleteItem(item.id)} >Delete</button>
+                                <button style={{ marginBottom: '20px' }} class=" btn btn-danger" onClick={() => deleteItem(item.id)}>Delete</button>
                             </div>
                         </li>
                     ))) : (<p>Your cart is empty.</p>
                 )}
             </ul>
+            <p style={{ marginTop: '12px' }}>Invoice : {total}</p>
+            <div className="my-3">
+                <label className='mb-4'>Select Payment Method:</label>
+                <select
+                    value={paymentMethod}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    className="form-select w-50 mx-auto"
+                >
+                    <option value="">Select</option>
+                    <option value="cash">Cash on Delivery</option>
+                    <option value="visa">Visa</option>
+                </select>
+            </div>
             <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', width: '80%', margin: 'auto' }}>
-                <p style={{ marginTop: '12px' }}>Invoice : {total}</p>
                 {cart.length > 0 ? <button onClick={clearCart} className='btn btn-danger'>Delete All</button> : ""}
-                {cart.length > 0 ? <button className='btn btn-info'>Place Order</button> : ""}
+                {cart.length > 0 ? <button onClick={handlePayment} className='btn btn-info'>Place Order</button> : ""}
             </div>
         </section >
     )

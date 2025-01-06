@@ -10,13 +10,17 @@ import ProductDetails from './ProductDetails';
 import NotFound from './NotFound';
 import AddtoCart from './AddtoCart';
 import ProdContextProvider from './Store';
+import Visa from './Visa';
 
 
 function App() {
 
 
-  const goToProductsPage = (navigate) => {
+  let goToProductsPage = (navigate) => {
     navigate('/products');
+  }
+  let goToVisaPage = (navigate) => {
+    navigate('/visa')
   };
 
 
@@ -33,7 +37,8 @@ function App() {
           </Route>
           <Route path='/about' element={<About />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/cart' element={<AddtoCart />} />
+          <Route path='/cart' element={<AddtoCart goToVisaPage={goToVisaPage} />} />
+          <Route path='/visa' element={<Visa />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
