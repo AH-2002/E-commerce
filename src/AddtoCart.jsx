@@ -26,7 +26,7 @@ export default function AddtoCart() {
 
 
     return (
-        <section className='p-5'>
+        <section className='AddToCartSection p-5'>
             <ul>
                 {cart.length > 0 ? (
                     cart.map((item) => (
@@ -37,9 +37,11 @@ export default function AddtoCart() {
                             <div className='cartItemsContent'>
                                 <h5 style={{ fontWeight: 'bolder' }}>{item.title}</h5>
                                 <p style={{ fontSize: 'larger', fontWeight: 'bolder', margin: '15px 0 15px 0' }}>Price: {item.price * item.quantity}</p>
-                                <button class=" btn btn-danger" onClick={() => decreaseItem(item.id)}>-</button>
-                                <span style={{ fontSize: 'larger', fontWeight: 'bolder', margin: '15px 10px 15px 10px' }}>{item.quantity}</span>
-                                <button class=" btn btn-info" onClick={() => increaseItem(item.id)}>+</button>
+                                <div className='counter'>
+                                    <button class=" btn btn-danger" onClick={() => decreaseItem(item.id)}>-</button>
+                                    <span style={{ fontSize: 'larger', fontWeight: 'bolder', margin: '15px 10px 15px 10px' }}>{item.quantity}</span>
+                                    <button class=" btn btn-info" onClick={() => increaseItem(item.id)}>+</button>
+                                </div>
                             </div>
                             <div>
                                 <button style={{ marginBottom: '20px' }} class=" btn btn-danger" onClick={() => deleteItem(item.id)}>Delete</button>

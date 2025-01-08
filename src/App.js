@@ -23,9 +23,13 @@ function App() {
     navigate('/visa')
   };
 
+  let goToHome = (navigate) => {
+    navigate('/home')
+  };
+
 
   return (
-    <div className="App w-100">
+    <div className="App">
       <ProdContextProvider>
         <NavBar />
         <Routes>
@@ -38,7 +42,7 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/cart' element={<AddtoCart goToVisaPage={goToVisaPage} />} />
-          <Route path='/visa' element={<Visa />} />
+          <Route path='/visa' element={<Visa goToHome={goToHome} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

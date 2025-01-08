@@ -7,24 +7,31 @@ export default function AddtoCartButton({ cartButton, productId }) {
     const handleAddToCart = () => {
         const result = cartButton(productId);  // Pass product ID and receive feedback
         if (result) {
-            setMessage("Done! Item added to cart.");
+            setMessage("✓");
         } else {
-            setMessage("Failed to add item.");
+            setMessage("X");
         }
 
         // Auto-hide after 3 seconds
         setTimeout(() => setMessage(""), 3000);
     };
 
+    const getBackgroundColor = () => {
+        return message === "✓" ? 'lightgreen' : 'red';
+    }
 
     return (
-        <>
-            <div className="btn btn-dark mb-4" onClick={cartButton, handleAddToCart}>Add to Cart</div>
+        <div style={{ position: 'relative' }}>
+            <button className="btn btn-dark mb-4" onClick={cartButton, handleAddToCart}>Add to Cart</button>
             {message && (
-                <div className={`alert ${message.includes("Done") ? 'alert-success' : 'alert-danger'}`} style={{ marginTop: "10px" }}>
+                <div style={{
+                    position: 'absolute', color: 'white', padding: '7px 15px', borderRadius: '10px', backgroundColor: getBackgroundColor(),
+                    fontWeight: 'bolder', top: '0', right: '15px'
+                }}>
                     {message}
                 </div>
-            )}
-        </>
+            )
+            }
+        </div >
     )
 }

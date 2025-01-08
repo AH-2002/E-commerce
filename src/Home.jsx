@@ -15,7 +15,7 @@ export default function Home({ goToProductsPage }) {
     return (
         <>
             <section className="home-component">
-                <div className=" container content">
+                <div className="container content" style={{width:'auto'}}>
                     <p>New Arrivals</p>
                     <h2> <span>Best Price </span>This Year</h2>
                     <p>Shoomatic offers you very comfortable time on walking and exercises</p>

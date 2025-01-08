@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import { prodContext } from "./Store";
 
 export default function Visa({ goToHome }) {
     let [expiryDate, setExpiryDate] = useState("");
     let [cardNumber, setCardNumber] = useState("");
     let navigate = useNavigate();
+    let { clearCart } = useContext(prodContext);
 
-    // Format input to MM/YYYY
     function formatExpiryDate(e) {
-        let value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        let value = e.target.value.replace(/\D/g, ''); 
 
         if (value.length >= 2) {
             value = value.slice(0, 2) + '/' + value.slice(2, 6);
@@ -16,7 +17,6 @@ export default function Visa({ goToHome }) {
         setExpiryDate(value);
     }
 
-    // Validate expiry date (Month 1-12, Year 2025+)
     function validateExpiryDate(e) {
         let parts = e.target.value.split('/');
 
@@ -68,11 +68,24 @@ export default function Visa({ goToHome }) {
         setCardNumber(formattedValue);
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();  // Prevent default form submission
+        const form = e.target;
+
+        if (form.checkValidity()) {
+            goToHome(navigate);  // Navigate if form is valid
+            clearCart();  // Clear cart after successful form submission
+        } else {
+            form.reportValidity();  // Highlight invalid fields if the form is not valid
+        }
+    };
+
+
     return (
         <section style={{ width: '80%', margin: 'auto', padding: '20px 0 10px 0' }}>
             <h2>Enter your Payment information</h2>
             <p>Complete your Purchase by providing your payment information</p>
-            <form className="g-3 p-4 needs-validation" style={{ textAlign: 'left' }} novalidate>
+            <form className="g-3 p-4 needs-validation" style={{ textAlign: 'left' }} noValidate onSubmit={handleSubmit}>
                 <div className='mb-4'>
                     <label htmlFor="cardNumber" className="form-label">Card Number</label>
                     <input
@@ -81,7 +94,7 @@ export default function Visa({ goToHome }) {
                         id="cardNumber"
                         placeholder='1234 1234 1234 1234'
                         required
-                        maxLength="19" // Allow up to 19 characters (4 groups of 4 digits with spaces)
+                        minLength="19"
                         value={cardNumber}
                         onInput={formatCardNumber}
                     />
@@ -113,9 +126,12 @@ export default function Visa({ goToHome }) {
                             type="text"
                             className="form-control"
                             id="validationCustom03"
-                            maxLength="3"  // Restrict to 3 characters
+                            inputMode="numeric"  // Mobile keyboard for numbers only
+                            pattern="[0-9]{3}"  // Ensures 3 digits only
+                            maxLength="3"       // Limits input to 3 characters
                             required
-                            onBlur={(e) => validateCCV(e.target)}  // Validate CCV on blur
+                            onInput={(e) => e.target.value = e.target.value.replace(/\D/g, '')}  // Remove non-digits
+                            onBlur={(e) => validateCCV(e.target)}
                         />
                         <div className="invalid-feedback">
                             Please provide a valid CCV (3 digits).
@@ -151,7 +167,9 @@ export default function Visa({ goToHome }) {
                     </div>
                 </div>
                 <div class="col-12">
-                    <button onClick={() => goToHome(navigate)} class="btn btn-primary" type="submit">Submit form</button>
+                    <div className="col-12">
+                        <button className="btn btn-primary" type="submit">Submit form</button>
+                    </div>
                 </div>
             </form>
         </section >

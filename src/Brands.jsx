@@ -10,8 +10,8 @@ import brand6 from './img/brand/6.png'
 
 export default function Brands() {
     return (
-        <div>
-            <ul className="brands row py-5">
+        <section>
+            <ul className="brands row py-5 w-100">
                 <li className='col-lg-2 col-md-6 col-sm-12'>
                     <img src={brand1} alt="Right Check" />
                 </li>
@@ -31,6 +31,6 @@ export default function Brands() {
                     <img src={brand6} alt="Skill Star" />
                 </li>
             </ul>
-        </div>
+        </section>
     )
 }

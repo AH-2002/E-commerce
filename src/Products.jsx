@@ -16,10 +16,10 @@ export default function Products() {
                 ) : (
                     prods && prods.length > 0 && prods.map((prod, i) => (
                         <div key={i} className="col-lg-4 col-md-6 col-sm-12 my-5 d-flex justify-content-evenly">
-                            <div className="card" style={{ width: " 18rem", border: 'none', padding: '10px' }}>
+                            <div className="card" style={{ width: " 18rem", border: 'none', padding: '10px', boxShadow: ' 0 4px 6px rgba(0, 0, 0, 0.2)' }}>
 
-                                <div style={{ height: "355.3px"}}>
-                                    <img src={prod.image} className="card-img-top" style={{ width:'100%',height:'100%',objectFit: 'cover', boxShadow: ' 0 4px 6px rgba(0, 0, 0, 0.2)' }} alt={prod.title} />
+                                <div style={{ height: "355.3px" }}>
+                                    <img src={prod.image} className="card-img-top" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt={ prod.title } />
                                 </div>
                                 <div className="card-body">
                                     <h5>{prod.title}</h5>
