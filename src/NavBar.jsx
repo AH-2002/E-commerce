@@ -10,6 +10,10 @@ export default function NavBar() {
     let handleToggle = () => {
         setIsOpen(!isOpen);
     }
+    let closeNavbar = () => {
+        setIsOpen(false);
+    };
+
 
     let navRef = useRef(null);
 
@@ -50,17 +54,17 @@ export default function NavBar() {
                     <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`} id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link active home" aria-current="page" to='home'>Home</Link>
+                                <Link className="nav-link active home" aria-current="page" to='home' onClick={closeNavbar}>Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to='products'>Products</Link>
+                                <Link className="nav-link" to='products' onClick={closeNavbar}>Products</Link>
                             </li>
 
                             <li className="nav-item">
-                                <Link className="nav-link" to='about'>About</Link>
+                                <Link className="nav-link" to='about' onClick={closeNavbar}>About</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to='contact'>Contact</Link>
+                                <Link className="nav-link" to='contact' onClick={closeNavbar}>Contact</Link>
                             </li>
 
                         </ul>

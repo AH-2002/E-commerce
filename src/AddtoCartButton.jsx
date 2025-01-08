@@ -21,17 +21,22 @@ export default function AddtoCartButton({ cartButton, productId }) {
     }
 
     return (
-        <div style={{ position: 'relative' }}>
-            <button className="btn btn-dark mb-4" onClick={cartButton, handleAddToCart}>Add to Cart</button>
-            {message && (
-                <div style={{
-                    position: 'absolute', color: 'white', padding: '7px 15px', borderRadius: '10px', backgroundColor: getBackgroundColor(),
-                    fontWeight: 'bolder', top: '0', right: '15px'
-                }}>
-                    {message}
-                </div>
-            )
-            }
+        <div style={{ display: 'flex',justifyContent:'center' }}>
+            <div style={{marginRight:'3px'}}>
+                <button className="btn btn-dark mb-4" onClick={cartButton, handleAddToCart}>Add to Cart</button>
+
+            </div>
+            <div>
+                {message && (
+                    <div className='PurchaseCheck' style={{
+                        color: 'white', padding: '7px 15px', borderRadius: '10px', backgroundColor: getBackgroundColor(),
+                        fontWeight: 'bolder'
+                    }}>
+                        {message}
+                    </div>
+                )
+                }
+            </div>
         </div >
     )
 }
