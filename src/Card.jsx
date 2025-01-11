@@ -1,6 +1,6 @@
 import AddtoCartButton from "./AddtoCartButton";
 
-export default function Card({ src, title, price, category, cartButton, id }) {
+export default function Card({ src, title, price, category, cartButton, productId }) {
     return (
         <div className="card" style={{
             border: 'none', width: '400px',
@@ -13,7 +13,7 @@ export default function Card({ src, title, price, category, cartButton, id }) {
                 <p className="card-text">{title.length > 23 ? title.slice(0, 23) + "..." : title}</p>
                 <p style={{ fontWeight: "bold" }}>{`${price} $`}</p>
                 <p>{category}</p>
-                <AddtoCartButton cartButton={cartButton} productId={id} />
+                <AddtoCartButton cartButton={cartButton} productId={productId} />
             </div>
         </div>
     );

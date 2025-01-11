@@ -2,21 +2,20 @@ import React, { useState } from "react";
 
 export default function AddtoCartButton({ cartButton, productId }) {
 
-    const [message, setMessage] = useState("");
+    let [message, setMessage] = useState("");
 
-    const handleAddToCart = () => {
-        const result = cartButton(productId);  // Pass product ID and receive feedback
+    let handleAddToCart = () => {
+        let result = cartButton(productId);
         if (result) {
             setMessage("✓");
         } else {
             setMessage("X");
         }
 
-        // Auto-hide after 3 seconds
         setTimeout(() => setMessage(""), 3000);
     };
 
-    const getBackgroundColor = () => {
+    let getBackgroundColor = () => {
         return message === "✓" ? 'lightgreen' : 'red';
     }
 

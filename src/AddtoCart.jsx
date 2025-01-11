@@ -9,6 +9,7 @@ export default function AddtoCart() {
     let total = cart.reduce((i, product) => i + product.price * product.quantity, 0);
     let navigate = useNavigate();
     let [paymentMethod, setPaymentMethod] = useState("");
+    let [message, setMessaga] = useState("")
 
 
 
@@ -16,14 +17,19 @@ export default function AddtoCart() {
         if (paymentMethod === 'visa') {
             navigate('/visa');
         } else if (paymentMethod === 'cash') {
-            alert("Order placed with Cash on Delivery!");
+            setMessaga("Order placed with Cash on Delivery!");
             clearCart();
-            navigate('/');
+            setTimeout(() => navigate("/"), 2000)
         } else {
-            alert("Please select a payment method.");
+            setMessaga("Please select a payment method.");
         }
+
+        setTimeout(() => setMessaga(""), 2000)
     };
 
+    let getBackgroundColor = () => {
+        return message === "Order placed with Cash on Delivery!" ? "rgba(23, 162, 184, 1)" : "rgba(220, 53, 69, 1)"
+    }
 
     return (
         <section className='AddToCartSection p-5'>
@@ -66,6 +72,15 @@ export default function AddtoCart() {
             <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', width: '80%', margin: 'auto' }}>
                 {cart.length > 0 ? <button onClick={clearCart} className='btn btn-danger'>Delete All</button> : ""}
                 {cart.length > 0 ? <button onClick={handlePayment} className='btn btn-info'>Place Order</button> : ""}
+            </div>
+            <div>
+                {
+                    message && (<div className='PurchaseCheck' style={{
+                        color: 'white', padding: '10px 15px', width: '50%', margin: '15px auto 0', borderRadius: '10px', backgroundColor: getBackgroundColor(), fontWeight: 'bolder'
+                    }}>
+                        {message}
+                    </div>)
+                }
             </div>
         </section >
     )
